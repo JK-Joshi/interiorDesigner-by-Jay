@@ -378,6 +378,12 @@
   }
 }
 
+@media (max-width: 767px) {
+  .hint {
+    display: none !important;
+  }
+}
+
 /* ── SVG fallback ─────────────────────────────────────────── */
 .fallback {
   position: absolute;

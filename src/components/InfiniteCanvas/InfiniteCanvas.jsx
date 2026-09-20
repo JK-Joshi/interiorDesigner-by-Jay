@@ -11,8 +11,8 @@ import { buildLayout } from './layout';
 import CanvasTile from './CanvasTile';
 import s from './InfiniteCanvas.module.css';
 
-const CLICK_DISTANCE = 6;
-const CLICK_TIME = 250;
+const CLICK_DISTANCE = 16;
+const CLICK_TIME = 450;
 const LERP = 0.1;
 const DRIFT = { x: -14, y: -22 }; // px / second
 const DRIFT_RESUME = 2; // seconds

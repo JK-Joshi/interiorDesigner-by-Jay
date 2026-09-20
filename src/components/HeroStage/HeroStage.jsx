@@ -3,11 +3,13 @@ import { gsap, ScrollTrigger, SplitText, useGSAP } from '../../lib/gsap';
 import { appStore } from '../../lib/appState';
 import { heroState, canvasState, PHASES } from '../../three/heroState';
 import { useFontsReady } from '../../hooks/useFontsReady';
+import { useIsMobile } from '../../hooks/useMediaQuery';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { projects } from '../../data/projects';
 import { kernW } from '../../lib/kerning';
 import { heroQuality, heroOverride, knownHeroMode, probeHeroMode, rememberHeroMode } from '../../lib/webgl';
 import InfiniteCanvas from '../InfiniteCanvas/InfiniteCanvas';
+import MobileGallery from './MobileGallery';
 import HeroOverlay from './HeroOverlay';
 import s from './HeroStage.module.css';
 
@@ -56,6 +58,7 @@ export default function HeroStage({ onExplore }) {
   const hintRef = useRef(null);
 
   const reduced = usePrefersReducedMotion();
+  const isMobile = useIsMobile();
   const fontsReady = useFontsReady();
   const [quality] = useState(heroQuality);
   const want3D = quality !== 'none' && !reduced;
@@ -293,7 +296,11 @@ export default function HeroStage({ onExplore }) {
     <section ref={stageRef} className={`${s.stage} ${reduced ? s.static : ''}`} aria-label="Rust Design Studio — introduction and selected works">
       <div ref={galleryRef} className={s.galleryLayer} id="projects">
         <h2 className="visually-hidden">Selected works — every image from every project</h2>
-        <InfiniteCanvas mode="stage" onExplore={onExplore} label="Selected works" />
+        {isMobile ? (
+          <MobileGallery onExplore={onExplore} />
+        ) : (
+          <InfiniteCanvas mode="stage" onExplore={onExplore} label="Selected works" />
+        )}
         <div ref={worksRef} className={s.works} aria-hidden="true">
           <span className={`eyebrow ${s.worksEyebrow}`}>(Portfolio) — {projects.length} spaces, {IMAGE_COUNT} rooms</span>
           <p ref={worksTitleRef} className={s.worksTitle} data-split="">
