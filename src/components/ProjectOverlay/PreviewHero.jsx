@@ -41,39 +41,22 @@ export default function PreviewHero({ project, image, flip, scroller, play = tru
         if (ctx.conditions.reduce) {
           title.classList.add('is-split');
           gsap.fromTo('[data-hero-fade]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6, stagger: 0.05, ease: 'none' });
-          if (flip) flipStore.hideSource();
           return undefined;
         }
 
         const tl = gsap.timeline();
 
-        // 1 — the image
-        if (flip) {
-          media.setAttribute('data-flip-id', flip.flipId);
-          flipStore.hideSource();
-          tl.add(
-            Flip.from(flip.state, {
-              targets: media,
-              duration: 1.25,
-              ease: 'rust.inOut',
-              scale: false,
-              absolute: true,
-              props: 'borderRadius',
-            }),
-            0,
-          );
-          tl.fromTo('[data-hero-scrim]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 1, ease: 'none' }, 0.6);
-        } else {
-          tl.fromTo(
-            media,
-            { clipPath: 'inset(100% 0% 0% 0%)' },
-            { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.5, ease: 'rust.inOut' },
-            0,
-          ).fromTo('[data-hero-scrim]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 1, ease: 'none' }, 0.4);
-        }
+        // 1 — the image (always full-width in background)
+        tl.fromTo(
+          media,
+          { clipPath: 'inset(100% 0% 0% 0%)' },
+          { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.4, ease: 'rust.inOut' },
+          0,
+        ).fromTo('[data-hero-scrim]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 1, ease: 'none' }, 0.4);
+
         tl.fromTo(
           kenRef.current,
-          { scale: flip ? 1 : 1.3, filter: 'brightness(0.7)' },
+          { scale: 1.25, filter: 'brightness(0.7)' },
           { scale: 1.04, filter: 'brightness(1)', duration: 2, ease: 'rust.out', clearProps: 'filter' },
           0,
         );
@@ -95,14 +78,14 @@ export default function PreviewHero({ project, image, flip, scroller, play = tru
               duration: 1.2,
               stagger: 0.028,
               ease: 'rust.out',
-              delay: flip ? 0.75 : 0.55,
+              delay: 0.55,
             });
           },
           autoSplit: true,
         });
 
         // 3 — supporting copy
-        tl.from('[data-hero-line]', { yPercent: 110, duration: 1, stagger: 0.08, ease: 'rust.out' }, flip ? 1.05 : 0.85)
+        tl.from('[data-hero-line]', { yPercent: 110, duration: 1, stagger: 0.08, ease: 'rust.out' }, 0.85)
           .fromTo('[data-hero-rule]', { '--rule': 0 }, { '--rule': 1, duration: 1.1, stagger: 0.06, ease: 'rust.inOut' }, '<0.1')
           .fromTo('[data-hero-fade]', { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.06, ease: 'rust.out' }, '<0.1');
 
@@ -122,7 +105,7 @@ export default function PreviewHero({ project, image, flip, scroller, play = tru
                 el.textContent = raw ? String(counter.v) : formatINR(counter.v);
               },
             },
-            flip ? 1.1 : 0.9,
+            0.9,
           );
         });
 

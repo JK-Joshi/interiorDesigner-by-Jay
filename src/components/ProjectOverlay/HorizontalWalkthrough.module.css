@@ -251,3 +251,109 @@
 .native .source {
   display: none;
 }
+
+@media (max-width: 767px) {
+  .track {
+    gap: clamp(1.5rem, 4.5vw, 3.5rem);
+    padding-inline: var(--gutter) 2rem;
+  }
+
+  .lead {
+    width: clamp(210px, 68vw, 290px);
+    height: clamp(330px, 58vh, 500px);
+    padding-right: 0.8rem;
+  }
+
+  .leadTitle {
+    font-size: clamp(1.9rem, 7.5vw, 2.75rem);
+  }
+
+  .leadHint {
+    font-size: 0.72rem;
+    margin-top: 1rem;
+  }
+
+  .panel {
+    height: clamp(330px, 58vh, 500px);
+    gap: clamp(1rem, 3.2vw, 2rem);
+  }
+
+  .frame {
+    max-width: 74vw;
+    border-radius: 14px;
+  }
+
+  .caption {
+    width: clamp(180px, 56vw, 260px);
+    padding-block: 0.2rem;
+  }
+
+  .index {
+    font-size: clamp(3.4rem, 11vw, 4.8rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .title {
+    font-size: clamp(1.35rem, 5.2vw, 1.85rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .desc {
+    font-size: 0.88rem;
+    line-height: 1.38;
+  }
+
+  .source {
+    margin-top: 0.8rem;
+    font-size: 0.62rem;
+  }
+
+  .end {
+    width: 65vw;
+  }
+
+  .mobileNav {
+    position: fixed;
+    right: var(--gutter);
+    bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+    z-index: 7;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    pointer-events: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+  }
+
+  .mobileNavVisible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navBtn {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgb(26 23 20 / 0.85);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    color: var(--bone);
+    border: 1px solid var(--brass-35);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 0.45);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  }
+
+  .navBtn:active {
+    transform: scale(0.92);
+    background: var(--rust);
+    color: var(--bone);
+  }
+}
+
+.mobileNav {
+  display: none;
+}

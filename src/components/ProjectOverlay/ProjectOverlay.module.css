@@ -425,7 +425,8 @@
 
 @media (max-width: 767px) {
   .hud {
-    bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+    right: calc(var(--gutter) + 98px);
+    bottom: calc(82px + env(safe-area-inset-bottom, 0px));
     padding: 0.45rem 0.8rem;
     border-radius: var(--radius-pill);
     background: rgb(26 23 20 / 0.72);

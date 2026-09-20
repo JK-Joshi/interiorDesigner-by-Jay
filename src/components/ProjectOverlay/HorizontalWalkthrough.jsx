@@ -35,10 +35,13 @@ export default function HorizontalWalkthrough({ project, startIndex = 0, scrolle
   const trackRef = useRef(null);
   const stripRef = useRef(null);
   const proxyRef = useRef(null);
+  const mobileNavRef = useRef(null);
+  const goToRef = useRef(null);
+  const nearestIndexRef = useRef(null);
   const fontsReady = useFontsReady();
   const desktop = useMediaQuery('(min-width: 768px)');
   const reduced = usePrefersReducedMotion();
-  const pinned = desktop && !reduced;
+  const pinned = !reduced;
 
   const ordered = useMemo(() => {
     const list = project.images.map((image, i) => ({ image, i }));
@@ -47,6 +50,12 @@ export default function HorizontalWalkthrough({ project, startIndex = 0, scrolle
   }, [project, startIndex]);
 
   useRefreshOnDecode(sectionRef, [project.slug, pinned]);
+
+  const handleStep = (direction) => {
+    if (!goToRef.current || !trackRef.current || !nearestIndexRef.current) return;
+    const current = nearestIndexRef.current(gsap.getProperty(trackRef.current, 'x'));
+    goToRef.current(current + direction);
+  };
 
   useGSAP(
     () => {
@@ -57,7 +66,12 @@ export default function HorizontalWalkthrough({ project, startIndex = 0, scrolle
       const total = ordered.length;
       const splits = [];
 
-      const report = (progress, index, active) => onProgress?.({ progress, index, total, active });
+      const report = (progress, index, active) => {
+        onProgress?.({ progress, index, total, active });
+        if (mobileNavRef.current) {
+          mobileNavRef.current.classList.toggle(s.mobileNavVisible, Boolean(active));
+        }
+      };
 
       // ── Mobile / reduced motion: native strip ───────────────────────────────
       if (!pinned) {
@@ -121,11 +135,14 @@ export default function HorizontalWalkthrough({ project, startIndex = 0, scrolle
         };
       }
 
-      // ── Desktop: pinned horizontal track ────────────────────────────────────
+      // ── Desktop & Mobile: pinned horizontal track ───────────────────────────
       const track = trackRef.current;
       const panels = gsap.utils.toArray('[data-panel]', track);
       const viewportWidth = () => (scrollerEl ? scrollerEl.clientWidth : window.innerWidth);
       const distance = () => Math.max(0, track.scrollWidth - viewportWidth());
+      // On mobile, scale the scroll distance so each room requires ~1 natural thumb swipe
+      // instead of requiring 32+ physical swipes to travel 5,000px.
+      const scrollDistance = () => (desktop ? distance() : Math.max(viewportWidth() * 1.5, Math.round(distance() * 0.42)));
       let centers = [];
       const measureCenters = () => {
         centers = panels.map((p) => p.offsetLeft + p.offsetWidth / 2);
@@ -153,9 +170,9 @@ export default function HorizontalWalkthrough({ project, startIndex = 0, scrolle
           trigger: section,
           scroller: scrollerEl,
           start: 'top top',
-          end: () => `+=${distance()}`,
+          end: () => `+=${scrollDistance()}`,
           pin: true,
-          scrub: 1,
+          scrub: desktop ? 1 : 0.25,
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onRefresh: measureCenters,
@@ -194,22 +211,44 @@ export default function HorizontalWalkthrough({ project, startIndex = 0, scrolle
             .fromTo(media, { clipPath: 'inset(0% 0% 0% 100%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.4, ease: 'rust.inOut' }, 0.1)
             .fromTo(indexEl, { xPercent: 50, autoAlpha: 0 }, { xPercent: 0, autoAlpha: 1, duration: 1.2, ease: 'rust.out' }, 0.4);
         } else {
-          gsap.fromTo(
-            media,
-            { clipPath: 'inset(0% 0% 0% 100%)' },
-            {
-              clipPath: 'inset(0% 0% 0% 0%)',
-              ease: 'none',
-              scrollTrigger: {
-                trigger: panel,
-                containerAnimation: scrollTween,
-                scroller: scrollerEl,
-                start: 'left 95%',
-                end: 'left 45%',
-                scrub: true,
+          if (desktop) {
+            gsap.fromTo(
+              media,
+              { clipPath: 'inset(0% 0% 0% 100%)' },
+              {
+                clipPath: 'inset(0% 0% 0% 0%)',
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: panel,
+                  containerAnimation: scrollTween,
+                  scroller: scrollerEl,
+                  start: 'left 95%',
+                  end: 'left 45%',
+                  scrub: true,
+                },
               },
-            },
-          );
+            );
+          } else {
+            // Mobile: GPU-accelerated opacity & scale (zero rasterization overhead)
+            gsap.fromTo(
+              media,
+              { autoAlpha: 0.35, scale: 0.94 },
+              {
+                autoAlpha: 1,
+                scale: 1,
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: panel,
+                  containerAnimation: scrollTween,
+                  scroller: scrollerEl,
+                  start: 'left 98%',
+                  end: 'left 55%',
+                  scrub: true,
+                },
+              },
+            );
+          }
+
           gsap.fromTo(
             indexEl,
             { xPercent: 70 },
@@ -228,45 +267,62 @@ export default function HorizontalWalkthrough({ project, startIndex = 0, scrolle
           );
         }
 
-        // Inner image parallax (horizontal).
-        gsap.fromTo(
-          par,
-          { xPercent: -7 },
-          {
-            xPercent: 7,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: panel,
-              containerAnimation: scrollTween,
-              scroller: scrollerEl,
-              start: 'left right',
-              end: 'right left',
-              scrub: true,
+        // Inner image parallax (desktop only to preserve mobile GPU memory bandwidth)
+        if (desktop && par) {
+          gsap.fromTo(
+            par,
+            { xPercent: -7 },
+            {
+              xPercent: 7,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: panel,
+                containerAnimation: scrollTween,
+                scroller: scrollerEl,
+                start: 'left right',
+                end: 'right left',
+                scrub: true,
+              },
             },
-          },
-        );
+          );
+        }
 
         [title, desc].forEach((el, k) => {
           if (!el) return;
-          splits.push(
-            splitLines(el, {
-              onSplit: (self) =>
-                gsap.from(self.lines, {
-                  yPercent: 115,
-                  rotate: 2,
-                  transformOrigin: '0% 100%',
-                  duration: 1.1,
-                  delay: (first ? 0.5 : 0.15) + k * 0.14,
-                  stagger: 0.07,
-                  ease: 'rust.out',
-                  scrollTrigger: enterST,
-                }),
-            }),
-          );
+          if (desktop) {
+            splits.push(
+              splitLines(el, {
+                onSplit: (self) =>
+                  gsap.from(self.lines, {
+                    yPercent: 115,
+                    rotate: 2,
+                    transformOrigin: '0% 100%',
+                    duration: 1.1,
+                    delay: (first ? 0.5 : 0.15) + k * 0.14,
+                    stagger: 0.07,
+                    ease: 'rust.out',
+                    scrollTrigger: enterST,
+                  }),
+              }),
+            );
+          } else {
+            gsap.fromTo(
+              el,
+              { y: 16, autoAlpha: 0 },
+              {
+                y: 0,
+                autoAlpha: 1,
+                duration: 0.7,
+                delay: (first ? 0.35 : 0.08) + k * 0.1,
+                ease: 'rust.out',
+                scrollTrigger: enterST,
+              },
+            );
+          }
         });
       });
 
-      // Drag-to-scroll on the track (with inertia).
+      // Drag-to-scroll on the track for desktop mouse.
       const scrollNow = () => (scrollerEl ? scrollerEl.scrollTop : window.scrollY);
       const setScroll = (y) => {
         const clamped = Math.min(st.end, Math.max(st.start, y));
@@ -285,16 +341,100 @@ export default function HorizontalWalkthrough({ project, startIndex = 0, scrolle
         activeCursor: 'grabbing',
         allowContextMenu: true,
         onPress() {
+          if (this.pointerType === 'touch') return;
           drag.startX = this.x;
           drag.startScroll = scrollNow();
         },
         onDrag() {
+          if (this.pointerType === 'touch') return;
           setScroll(drag.startScroll - (this.x - drag.startX));
         },
         onThrowUpdate() {
+          if (this.pointerType === 'touch') return;
           setScroll(drag.startScroll - (this.x - drag.startX));
         },
       });
+
+      // Jump to a specific room with Lenis smooth easing
+      const goTo = (index, duration = desktop ? 1.2 : 0.75) => {
+        const i = Math.max(0, Math.min(panels.length - 1, index));
+        const trackOffset = Math.max(0, Math.min(distance(), centers[i] - viewportWidth() / 2));
+        const progress = distance() > 0 ? trackOffset / distance() : 0;
+        const targetY = st.start + progress * (st.end - st.start);
+        const clamped = Math.min(st.end, Math.max(st.start, targetY));
+        const l = getScrollLenis();
+        if (l) l.scrollTo(clamped, { duration, force: true });
+        else if (scrollerEl) scrollerEl.scrollTo({ top: clamped, behavior: 'smooth' });
+        else window.scrollTo({ top: clamped, behavior: 'smooth' });
+      };
+      goToRef.current = goTo;
+      nearestIndexRef.current = nearestIndex;
+
+      // Frictionless touch gesture engine for mobile devices:
+      // Vertical touch scroll glides naturally down the page and through the pinned track.
+      // Horizontal touch flicks glide cleanly room-to-room with momentum.
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let touchStartTime = 0;
+      let isHorizontalGesture = false;
+      let isDecided = false;
+
+      const onTouchStart = (e) => {
+        if (!st.isActive || e.touches.length !== 1) return;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchStartTime = Date.now();
+        isHorizontalGesture = false;
+        isDecided = false;
+      };
+
+      const onTouchMove = (e) => {
+        if (!st.isActive || e.touches.length !== 1) return;
+        const dx = e.touches[0].clientX - touchStartX;
+        const dy = e.touches[0].clientY - touchStartY;
+
+        if (!isDecided) {
+          if (Math.hypot(dx, dy) < 10) return;
+          isDecided = true;
+          isHorizontalGesture = Math.abs(dx) > Math.abs(dy) * 1.15;
+        }
+
+        if (isHorizontalGesture) {
+          if (e.cancelable) e.preventDefault();
+        }
+      };
+
+      const onTouchEnd = (e) => {
+        if (!st.isActive || !isHorizontalGesture) {
+          isDecided = false;
+          isHorizontalGesture = false;
+          return;
+        }
+
+        const touch = e.changedTouches?.[0];
+        if (!touch) return;
+        const dx = touch.clientX - touchStartX;
+        const dt = Math.max(1, Date.now() - touchStartTime);
+        const vx = dx / dt; // px per ms
+
+        const current = nearestIndex(gsap.getProperty(track, 'x'));
+
+        if (dx < -35 || vx < -0.28) {
+          goTo(current + 1, 0.75);
+        } else if (dx > 35 || vx > 0.28) {
+          goTo(current - 1, 0.75);
+        } else {
+          goTo(current, 0.5);
+        }
+
+        isDecided = false;
+        isHorizontalGesture = false;
+      };
+
+      track.addEventListener('touchstart', onTouchStart, { passive: true });
+      track.addEventListener('touchmove', onTouchMove, { passive: false });
+      track.addEventListener('touchend', onTouchEnd, { passive: true });
+      track.addEventListener('touchcancel', onTouchEnd, { passive: true });
 
       // Horizontal trackpad / shift-wheel → vertical scroll progress.
       const onWheel = (e) => {
@@ -309,16 +449,6 @@ export default function HorizontalWalkthrough({ project, startIndex = 0, scrolle
       };
       section.addEventListener('wheel', onWheel, { passive: false });
 
-      // Arrow keys jump panel to panel.
-      const goTo = (index) => {
-        const i = Math.max(0, Math.min(panels.length - 1, index));
-        const target = st.start + (centers[i] - viewportWidth() / 2);
-        const y = Math.min(st.end, Math.max(st.start, target));
-        const l = getScrollLenis();
-        if (l) l.scrollTo(y, { duration: 1.2, force: true });
-        else if (scrollerEl) scrollerEl.scrollTo({ top: y, behavior: 'smooth' });
-        else window.scrollTo({ top: y, behavior: 'smooth' });
-      };
       const onKey = (e) => {
         if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
         e.preventDefault();
@@ -329,9 +459,18 @@ export default function HorizontalWalkthrough({ project, startIndex = 0, scrolle
 
       return () => {
         draggable.kill();
+        track.removeEventListener('touchstart', onTouchStart);
+        track.removeEventListener('touchmove', onTouchMove);
+        track.removeEventListener('touchend', onTouchEnd);
+        track.removeEventListener('touchcancel', onTouchEnd);
         section.removeEventListener('wheel', onWheel);
         section.removeEventListener('keydown', onKey);
         splits.forEach((sp) => sp.revert());
+        goToRef.current = null;
+        nearestIndexRef.current = null;
+        if (mobileNavRef.current) {
+          mobileNavRef.current.classList.remove(s.mobileNavVisible);
+        }
         report(0, 0, false);
       };
     },
@@ -391,6 +530,28 @@ export default function HorizontalWalkthrough({ project, startIndex = 0, scrolle
       {pinned ? (
         <>
           <div ref={proxyRef} className={s.proxy} aria-hidden="true" />
+          <div ref={mobileNavRef} className={s.mobileNav} aria-hidden="true">
+            <button
+              type="button"
+              className={s.navBtn}
+              onClick={() => handleStep(-1)}
+              aria-label="Previous room"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              className={s.navBtn}
+              onClick={() => handleStep(1)}
+              aria-label="Next room"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          </div>
           <div ref={trackRef} className={s.track}>
             <div className={s.lead}>
               <p className={s.leadMask}>
