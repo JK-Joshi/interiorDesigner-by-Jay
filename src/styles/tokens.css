@@ -1,0 +1,77 @@
+/* ──────────────────────────────────────────────────────────────
+   Rust Design Studio — design tokens
+   Every colour, type size, easing and layer lives here.
+   ────────────────────────────────────────────────────────────── */
+:root {
+  /* Palette */
+  --ink: #1a1714;
+  --espresso: #2a221d;
+  --rust: #b7472a;
+  --rust-light: #d9784f;
+  --brass: #b8955a;
+  --linen: #efe7dc;
+  --bone: #f7f3ee;
+  --stone: #a89a8a;
+  --sage: #6b6f5a;
+  --graphite: #3b3835;
+
+  /* Derived (AA-safe) helpers */
+  --stone-deep: #7a6e63; /* un-filled statement words on linen (large text ≥ 3:1) */
+  --muted-on-light: #6b5f55; /* secondary text on linen / bone (≥ 4.5:1) */
+  --rust-deep: #9c3b22; /* rust hover on light */
+  --brass-20: rgb(184 149 90 / 0.2);
+  --brass-35: rgb(184 149 90 / 0.35);
+  --bone-12: rgb(247 243 238 / 0.12);
+  --bone-60: rgb(247 243 238 / 0.6);
+  --ink-12: rgb(26 23 20 / 0.12);
+  --espresso-70: rgb(42 34 29 / 0.7);
+
+  /* Typography */
+  --font-display: 'Playfair Display Variable', 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-serif: 'Cormorant Garamond', Garamond, 'Times New Roman', serif;
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --fs-hero: clamp(3.25rem, 9vw, 10.5rem);
+  --fs-display: clamp(2.75rem, 7vw, 8rem);
+  --fs-h2: clamp(2.25rem, 4.8vw, 5.25rem);
+  --fs-h3: clamp(1.55rem, 2.6vw, 2.6rem);
+  --fs-h4: clamp(1.25rem, 1.6vw, 1.6rem);
+  --fs-lead: clamp(1.2rem, 1.1rem + 0.6vw, 1.65rem);
+  --fs-statement: clamp(1.75rem, 1rem + 3.2vw, 4.4rem);
+  --fs-body: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --fs-small: 0.875rem;
+  --fs-label: 0.72rem;
+  --fs-caption: clamp(1.15rem, 1rem + 0.4vw, 1.35rem);
+
+  --tracking-display: -0.02em;
+  --tracking-label: 0.22em;
+  --lh-body: 1.6;
+  --lh-tight: 0.95;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 0.35s;
+  --dur-med: 0.7s;
+
+  /* Layout */
+  --gutter: clamp(1rem, 4vw, 4rem);
+  --section-pad: clamp(6rem, 16vh, 13rem);
+  --maxw: 1600px;
+  --radius-pill: 999px;
+  --radius-lg: 22px;
+  --radius-md: 12px;
+  --nav-clearance: calc(120px + env(safe-area-inset-bottom, 0px));
+  --hairline: 1px solid var(--brass-35);
+
+  /* Layers */
+  --z-base: 1;
+  --z-overlay: 50;
+  --z-chrome: 60;
+  --z-nav: 70;
+  --z-explore: 75;
+  --z-transition: 90;
+  --z-preloader: 95;
+  --z-grain: 98;
+  --z-cursor: 100;
+}

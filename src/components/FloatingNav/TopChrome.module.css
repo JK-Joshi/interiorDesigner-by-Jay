@@ -1,0 +1,89 @@
+.chrome {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-chrome);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: calc(clamp(16px, 2.2vw, 28px) + env(safe-area-inset-top, 0px)) var(--gutter) 0;
+  pointer-events: none;
+  color: var(--bone);
+  transition: color 0.5s var(--ease-out);
+}
+
+.chrome[data-theme='light'] {
+  color: var(--ink);
+}
+
+.mask {
+  overflow: hidden;
+  padding-block: 2px;
+  visibility: hidden;
+}
+
+.wordmark,
+.time {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  pointer-events: auto;
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  line-height: 1.6;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.dash {
+  opacity: 0.6;
+}
+
+.city {
+  opacity: 0.75;
+}
+
+.clock {
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: 0.12em;
+}
+
+.colon {
+  display: inline-block;
+  animation: blink 2s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.15;
+  }
+}
+
+@media (max-width: 639px) {
+  .dash,
+  .wordmark .city {
+    display: none;
+  }
+
+  .time .city {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mask {
+    visibility: visible;
+  }
+
+  .colon {
+    animation: none;
+  }
+}

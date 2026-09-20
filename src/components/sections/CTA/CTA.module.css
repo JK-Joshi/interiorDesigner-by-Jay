@@ -1,0 +1,67 @@
+.cta {
+  position: relative;
+  padding-block: var(--section-pad);
+  color: var(--bone);
+  isolation: isolate;
+  overflow: clip;
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(80% 90% at 85% 10%, rgb(217 120 79 / 0.35), transparent 60%),
+    var(--rust);
+  transform-origin: 50% 0%;
+}
+
+.inner {
+  display: grid;
+  gap: clamp(1.6rem, 4vh, 2.6rem);
+}
+
+.heading {
+  font-size: var(--fs-display);
+  max-width: 13ch;
+}
+
+.your {
+  position: relative;
+  display: inline-block;
+  color: var(--bone);
+}
+
+.underline {
+  position: absolute;
+  left: -4%;
+  right: -4%;
+  bottom: -0.12em;
+  width: 108%;
+  height: 0.32em;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.underline path {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.text {
+  max-width: 44ch;
+  font-size: var(--fs-lead);
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--bone);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.6rem;
+}

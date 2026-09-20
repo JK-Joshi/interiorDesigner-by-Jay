@@ -1,0 +1,253 @@
+.section {
+  position: relative;
+  background: var(--ink);
+  color: var(--bone);
+}
+
+.section:focus-visible {
+  outline-offset: -6px;
+}
+
+/* ── Desktop pinned track ─────────────────────────────────── */
+.pinned {
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.proxy {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: clamp(3rem, 6vw, 7rem);
+  height: 100%;
+  padding-inline: var(--gutter) 0;
+  will-change: transform;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.lead {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+  width: clamp(240px, 19vw, 360px);
+  height: 68vh;
+  padding-right: 1rem;
+  border-right: 1px solid var(--brass-20);
+}
+
+.leadMask {
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.leadMask > span {
+  display: inline-block;
+}
+
+.leadMask:first-child {
+  margin-bottom: 1.2rem;
+  color: var(--stone);
+}
+
+.leadTitle {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4vw, 4.6rem);
+  line-height: 1;
+  letter-spacing: var(--tracking-display);
+}
+
+.leadItalic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--rust-light);
+}
+
+.leadHint {
+  margin-top: 1.6rem;
+  font-size: var(--fs-small);
+  color: var(--stone);
+}
+
+.panel {
+  position: relative;
+  flex: none;
+  display: flex;
+  align-items: stretch;
+  gap: clamp(1.5rem, 2.6vw, 3rem);
+  height: 66vh;
+}
+
+.frame {
+  position: relative;
+  flex: none;
+  height: 100%;
+  aspect-ratio: var(--ar);
+  max-width: 78vw;
+  overflow: hidden;
+  background: var(--espresso);
+  clip-path: inset(0% 0% 0% 0%);
+}
+
+.frameInner {
+  position: absolute;
+  inset: 0 -8%;
+  will-change: transform;
+}
+
+.caption {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: clamp(240px, 21vw, 360px);
+  padding-block: 0.4rem;
+}
+
+.panel[data-align='bottom'] .caption {
+  justify-content: flex-end;
+}
+
+.index {
+  display: block;
+  margin-bottom: 1.2rem;
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 10vw, 11rem);
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(184 149 90 / 0.7);
+  will-change: transform;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 3.4vw, 3.9rem);
+  line-height: 1;
+  letter-spacing: var(--tracking-display);
+  margin-bottom: 1.1rem;
+}
+
+.desc {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--fs-caption);
+  line-height: 1.4;
+  color: rgb(247 243 238 / 0.82);
+  max-width: 34ch;
+}
+
+.source {
+  margin-top: 1.4rem;
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+.end {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  width: 42vw;
+  padding-right: var(--gutter);
+  color: var(--stone);
+}
+
+.endLine {
+  flex: 1;
+  height: 1px;
+  background: var(--brass-35);
+}
+
+/* ── Mobile / reduced motion: native strip ────────────────── */
+.native {
+  padding-block: 4.5rem 2rem;
+}
+
+.nativeHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding-inline: var(--gutter);
+  margin-bottom: 1.4rem;
+  color: var(--stone);
+}
+
+.nativeHint {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.05rem;
+}
+
+.strip {
+  display: flex;
+  gap: 1rem;
+  padding: 0 var(--gutter) 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.strip::-webkit-scrollbar {
+  display: none;
+}
+
+.native .panel {
+  flex-direction: column;
+  width: min(86vw, 520px);
+  height: auto;
+  scroll-snap-align: start;
+  gap: 1rem;
+}
+
+.native .frame {
+  width: 100%;
+  height: auto;
+  max-width: none;
+  max-height: 62svh;
+  aspect-ratio: var(--ar);
+}
+
+.native .caption {
+  width: 100%;
+  padding-inline: 0.2rem;
+}
+
+.native .index {
+  position: absolute;
+  top: -0.2rem;
+  right: 0;
+  margin: 0;
+  font-size: 4rem;
+}
+
+.native .title {
+  font-size: clamp(1.7rem, 7vw, 2.3rem);
+  padding-right: 4.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.native .source {
+  display: none;
+}

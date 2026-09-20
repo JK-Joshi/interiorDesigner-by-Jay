@@ -1,0 +1,475 @@
+/* ── Stage ─────────────────────────────────────────────────── */
+.stage {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--bone);
+}
+
+.galleryLayer {
+  --reveal: 0;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.heroLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  background: var(--ink);
+  will-change: transform;
+  box-shadow: 0 30px 80px rgb(0 0 0 / 0.45);
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+}
+
+.sceneLoading {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(40% 45% at 66% 52%, rgb(255 190 120 / 0.1), transparent 70%),
+    var(--ink);
+}
+
+.scene canvas {
+  display: block;
+  touch-action: pan-y !important;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 95% at 62% 55%, transparent 45%, rgb(10 8 7 / 0.6) 100%),
+    linear-gradient(to right, rgb(26 23 20 / 0.72) 0%, rgb(26 23 20 / 0) 45%);
+}
+
+/* Reduced motion: no pin — hero and gallery stack as normal sections. */
+.static {
+  height: auto;
+  display: flex;
+  flex-direction: column-reverse;
+  overflow: visible;
+}
+
+.static .galleryLayer,
+.static .heroLayer {
+  position: relative;
+  inset: auto;
+  height: 100vh;
+  height: 100svh;
+  --reveal: 1;
+  pointer-events: auto;
+  box-shadow: none;
+}
+
+.static .works {
+  opacity: 1;
+  visibility: visible;
+}
+
+.static .hint {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ── Overlay copy ─────────────────────────────────────────── */
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.intro {
+  position: absolute;
+  left: var(--gutter);
+  top: 50%;
+  width: min(56vw, 1040px);
+  transform: translateY(-46%);
+}
+
+.mask {
+  overflow: hidden;
+  padding-block: 0.15em;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: var(--stone);
+  margin-bottom: clamp(1rem, 2.4vh, 1.8rem);
+}
+
+.headlineMask {
+  overflow: hidden;
+  padding-bottom: 0.12em;
+}
+
+.headline {
+  font-size: var(--fs-hero);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.headline em {
+  color: var(--rust-light);
+  letter-spacing: -0.02em;
+}
+
+.sub {
+  max-width: 34ch;
+  margin-top: clamp(1.2rem, 3vh, 2.2rem);
+  font-size: var(--fs-body);
+  color: rgb(247 243 238 / 0.78);
+}
+
+.cueWrap {
+  position: absolute;
+  left: var(--gutter);
+  bottom: calc(clamp(24px, 4vh, 44px) + env(safe-area-inset-bottom, 0px));
+}
+
+.cue {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--bone);
+}
+
+.cueSvg {
+  width: 18px;
+  height: 48px;
+  overflow: visible;
+}
+
+.cueSvg path {
+  fill: none;
+  stroke: var(--rust-light);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.phase {
+  position: absolute;
+  left: var(--gutter);
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.phaseRow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.15rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.2vw, 2.2rem);
+  line-height: 1;
+}
+
+.phaseParen {
+  color: var(--brass);
+}
+
+.rollMask {
+  display: inline-block;
+  height: 1.1em;
+  overflow: hidden;
+  line-height: 1.1;
+}
+
+.roller {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+
+.roller > span {
+  display: block;
+  height: 1.1em;
+}
+
+.phaseWordMask {
+  margin-left: 0.8rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--rust-light);
+}
+
+.progressTrack {
+  position: absolute;
+  left: -1.1rem;
+  top: 50%;
+  width: 1px;
+  height: 34vh;
+  transform: translateY(-50%);
+  background: rgb(247 243 238 / 0.12);
+}
+
+.progressBar {
+  position: absolute;
+  inset: 0;
+  background: var(--rust-light);
+  transform-origin: 50% 0%;
+  transform: scaleY(0);
+}
+
+.note {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: clamp(7rem, 16vh, 11rem);
+  width: min(90vw, 760px);
+  margin-inline: auto;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.6vw, 2.6rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  opacity: 0;
+  visibility: hidden;
+  text-shadow: 0 2px 24px rgb(10 8 7 / 0.8);
+}
+
+.note em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--rust-light);
+}
+
+/* ── Gallery overlays ─────────────────────────────────────── */
+.works {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1.2rem;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  background: radial-gradient(60% 50% at 50% 50%, rgb(26 23 20 / 0.55), transparent 70%);
+}
+
+.worksEyebrow {
+  color: var(--bone);
+}
+
+.worksTitle {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 12vw, 13rem);
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+  color: var(--bone);
+  text-shadow: 0 6px 60px rgb(10 8 7 / 0.55);
+  white-space: nowrap;
+}
+
+.worksTitle em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--rust-light);
+}
+
+.worksLine {
+  width: min(40vw, 420px);
+  height: 1px;
+  background: var(--brass);
+  transform-origin: 50% 50%;
+}
+
+.hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: max-content;
+  margin-inline: auto;
+  padding: 0.6rem 1.1rem;
+  border-radius: var(--radius-pill);
+  background: rgb(26 23 20 / 0.7);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--brass-20);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.hintIcon {
+  position: relative;
+  width: 22px;
+  height: 14px;
+}
+
+.hintIcon span {
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 1px;
+  background: var(--rust-light);
+}
+
+.hintIcon span:first-child {
+  left: 0;
+  animation: hintLeft 1.6s var(--ease-in-out) infinite;
+}
+
+.hintIcon span:last-child {
+  right: 0;
+  animation: hintRight 1.6s var(--ease-in-out) infinite;
+}
+
+@keyframes hintLeft {
+  50% {
+    transform: translateX(-4px);
+  }
+}
+
+@keyframes hintRight {
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+.hintTouch {
+  display: none;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .hintFine {
+    display: none;
+  }
+
+  .hintTouch {
+    display: inline;
+  }
+
+  .hint {
+    bottom: calc(150px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ── SVG fallback ─────────────────────────────────────────── */
+.fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  perspective: 1200px;
+  background:
+    radial-gradient(70% 60% at 60% 55%, rgb(255 190 120 / 0.08), transparent 70%),
+    var(--ink);
+}
+
+.paper {
+  position: absolute;
+  right: 4vw;
+  top: 0;
+  bottom: 0;
+  margin-block: auto;
+  width: min(42vw, 760px);
+  height: fit-content;
+  aspect-ratio: 1414 / 1000;
+  background: #f5efe5;
+  box-shadow:
+    0 40px 90px rgb(0 0 0 / 0.55),
+    0 0 0 1px rgb(0 0 0 / 0.1);
+  transform-origin: 50% 80%;
+}
+
+.planSvg {
+  width: 100%;
+  height: 100%;
+}
+
+.silhouette {
+  position: absolute;
+  right: 1vw;
+  bottom: 0;
+  width: min(26vw, 380px);
+  height: auto;
+  opacity: 0.95;
+}
+
+/* ── Mobile ───────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .intro {
+    top: calc(84px + env(safe-area-inset-top, 0px));
+    width: calc(100vw - var(--gutter) * 2);
+    transform: none;
+  }
+
+  .headline {
+    font-size: clamp(2.7rem, 12.5vw, 4.4rem);
+  }
+
+  .sub {
+    max-width: 30ch;
+    font-size: 0.95rem;
+  }
+
+  .vignette {
+    background:
+      radial-gradient(120% 80% at 50% 70%, transparent 40%, rgb(10 8 7 / 0.6) 100%),
+      linear-gradient(to bottom, rgb(26 23 20 / 0.85) 0%, rgb(26 23 20 / 0) 55%);
+  }
+
+  .cueWrap {
+    bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .phase {
+    top: calc(84px + env(safe-area-inset-top, 0px));
+    bottom: auto;
+  }
+
+  .progressTrack {
+    display: none;
+  }
+
+  .note {
+    bottom: calc(120px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .paper {
+    right: 0;
+    left: 0;
+    top: 16vh;
+    margin-inline: auto;
+    width: 92vw;
+  }
+
+  .silhouette {
+    width: 44vw;
+    right: -4vw;
+  }
+}

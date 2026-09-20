@@ -1,0 +1,194 @@
+.footer {
+  position: relative;
+  padding-top: clamp(5rem, 12vh, 9rem);
+  padding-bottom: var(--nav-clearance);
+  overflow: hidden;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 3rem 2rem;
+}
+
+.col {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+}
+
+.lead {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 2.8vw, 2.8rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  max-width: 16ch;
+}
+
+.lead em {
+  font-family: var(--font-serif);
+  color: var(--rust-light);
+}
+
+.bigLink {
+  justify-self: start;
+  display: inline-flex;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--brass-35);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition:
+    color 0.4s var(--ease-out),
+    border-color 0.4s var(--ease-out);
+}
+
+.bigLink:hover,
+.bigLink:focus-visible {
+  color: var(--rust-light);
+  border-color: var(--rust-light);
+}
+
+.heading {
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+.spaced {
+  margin-top: 1.4rem;
+}
+
+.address {
+  display: grid;
+  gap: 0.25rem;
+  font-style: normal;
+}
+
+.list {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.link {
+  display: inline-block;
+  min-height: 24px;
+}
+
+.linkText {
+  position: relative;
+  display: inline-block;
+}
+
+.linkText::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.link:hover .linkText::after,
+.link:focus-visible .linkText::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+.placeholder {
+  color: var(--stone);
+  font-family: var(--font-sans);
+  letter-spacing: 0.02em;
+}
+
+.hours {
+  display: grid;
+}
+
+.muted {
+  color: var(--stone);
+}
+
+.rule {
+  display: block;
+  height: 1px;
+  margin-top: clamp(4rem, 10vh, 7rem);
+  background: var(--brass-35);
+  transform-origin: 0 50%;
+}
+
+/* The wordmark is sized against its own column (cqi), so it always spans it exactly. */
+.markWrap {
+  container-type: inline-size;
+  margin-top: clamp(1.5rem, 4vh, 3rem);
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 10.2cqi, 12rem);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  text-align: center;
+  color: var(--bone);
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem 2rem;
+  margin-top: clamp(2rem, 5vh, 3.5rem);
+  font-size: var(--fs-small);
+}
+
+.top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.1rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--brass-35);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  transition:
+    background-color 0.4s var(--ease-out),
+    color 0.4s var(--ease-out);
+}
+
+.top:hover,
+.top:focus-visible {
+  background: var(--bone);
+  color: var(--ink);
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 599px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wordmark {
+    white-space: normal;
+    font-size: clamp(2.6rem, 19cqi, 5rem);
+    text-align: left;
+  }
+}

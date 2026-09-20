@@ -1,0 +1,170 @@
+.process {
+  position: relative;
+}
+
+.pin {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-block: clamp(5rem, 12vh, 9rem);
+}
+
+.head {
+  display: grid;
+  gap: 1.6rem;
+  margin-bottom: clamp(3rem, 9vh, 6rem);
+}
+
+.title {
+  font-size: var(--fs-h2);
+  max-width: 16ch;
+}
+
+.track {
+  position: relative;
+}
+
+.lineH {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 120px;
+  overflow: visible;
+}
+
+.lineV {
+  display: none;
+}
+
+.lineH path,
+.lineV path {
+  fill: none;
+  stroke: var(--graphite);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.pencil {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 58px;
+  height: 12px;
+  margin: -6px 0 0 0;
+  transform-origin: 0 50%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 2.4rem);
+  padding-top: 130px;
+}
+
+.step {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.7rem;
+  padding: 1.6rem 1.4rem 1.8rem;
+  border-radius: var(--radius-md);
+  background: var(--linen);
+  border: 1px solid rgb(26 23 20 / 0.08);
+  box-shadow: 0 20px 40px -30px rgb(26 23 20 / 0.35);
+}
+
+.dot {
+  position: absolute;
+  top: -70px;
+  left: 1.4rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--rust);
+  box-shadow: 0 0 0 6px rgb(183 71 42 / 0.15);
+}
+
+.step:nth-child(even) .dot {
+  top: -58px;
+}
+
+.numMask {
+  overflow: hidden;
+}
+
+.num {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 3.6vw, 3.6rem);
+  line-height: 1;
+  color: var(--rust);
+}
+
+.stepTitle {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-h4);
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.stepText {
+  font-size: 0.95rem;
+  color: var(--muted-on-light);
+}
+
+.duration {
+  margin-top: 0.4rem;
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+@media (max-width: 899px) {
+  .pin {
+    min-height: 0;
+  }
+
+  .lineH {
+    display: none;
+  }
+
+  .lineV {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+    padding-top: 0;
+    padding-left: 56px;
+    gap: 1.2rem;
+  }
+
+  .dot,
+  .step:nth-child(even) .dot {
+    top: 1.9rem;
+    left: -44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pencil {
+    display: none;
+  }
+}

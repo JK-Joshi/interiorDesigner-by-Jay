@@ -1,0 +1,125 @@
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-preloader);
+  color: var(--bone);
+  overflow: hidden;
+}
+
+.half {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50.5%;
+  background: var(--ink);
+  will-change: transform;
+}
+
+.top {
+  top: 0;
+  border-bottom: 1px solid rgb(184 149 90 / 0.08);
+}
+
+.bottom {
+  bottom: 0;
+}
+
+.content {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: clamp(1rem, 2.5vh, 1.8rem);
+  padding-inline: var(--gutter);
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+.word {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 7.4vw, 7.5rem);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.lineWrap {
+  position: relative;
+  width: min(80vw, 1100px);
+  height: 60px;
+}
+
+.line {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.line path {
+  fill: none;
+  stroke: var(--stone);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.pencil {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 64px;
+  height: 13px;
+  margin: -6.5px 0 0 0;
+  transform-origin: 0% 50%;
+  opacity: 0;
+}
+
+.meta {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--fs-caption);
+  color: var(--stone);
+}
+
+.counterMask {
+  position: absolute;
+  right: var(--gutter);
+  bottom: calc(clamp(16px, 3vw, 32px) + env(safe-area-inset-bottom, 0px));
+  overflow: hidden;
+}
+
+.counter {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.2em;
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 9vw, 8.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.pct {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  color: var(--rust-light);
+  padding-top: 0.6em;
+}
+
+@media (max-width: 639px) {
+  .word {
+    white-space: normal;
+    font-size: clamp(2.4rem, 13vw, 4rem);
+    line-height: 1.02;
+  }
+}

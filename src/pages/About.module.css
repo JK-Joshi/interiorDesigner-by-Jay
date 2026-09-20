@@ -1,0 +1,523 @@
+/* Hero */
+.hero {
+  position: relative;
+  padding-top: clamp(7rem, 16vh, 11rem);
+  padding-bottom: clamp(4rem, 10vh, 8rem);
+  overflow: hidden;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  align-items: end;
+  gap: clamp(2rem, 6vw, 7rem);
+}
+
+.heroText {
+  display: grid;
+  gap: 1.6rem;
+  align-content: end;
+}
+
+.heroText :global(.eyebrow) {
+  color: var(--stone);
+}
+
+.heroTitle {
+  font-size: var(--fs-hero);
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+}
+
+.heroMeta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  margin-top: 1rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--brass-20);
+}
+
+.heroMeta :global(.lead) {
+  color: var(--bone);
+}
+
+.heroBody {
+  color: rgb(247 243 238 / 0.72);
+}
+
+.heroImageWrap {
+  will-change: transform;
+}
+
+.heroImage {
+  border-radius: 999px 999px 6px 6px;
+}
+
+/* Story */
+.storyGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 7vw, 8rem);
+}
+
+.stickyCol {
+  position: relative;
+}
+
+.sticky {
+  position: sticky;
+  top: 12vh;
+}
+
+.stack {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  max-height: 76vh;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--espresso);
+}
+
+.stackItem {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.stackCount {
+  margin-top: 1rem;
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--muted-on-light);
+}
+
+.storyText {
+  display: grid;
+  align-content: start;
+  gap: 0;
+  padding-bottom: 20vh;
+}
+
+.storyBlock {
+  display: grid;
+  gap: 1.2rem;
+  min-height: 70vh;
+  align-content: center;
+  border-bottom: 1px solid rgb(26 23 20 / 0.1);
+  padding-block: 4rem;
+}
+
+.storyEyebrow {
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--rust);
+}
+
+.storyTitle {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-h2);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.storyBody {
+  max-width: 44ch;
+  font-size: var(--fs-lead);
+  font-family: var(--font-serif);
+  line-height: 1.4;
+  color: var(--muted-on-light);
+}
+
+/* Shared */
+.sectionTitle {
+  font-size: var(--fs-h2);
+  margin-top: 1.6rem;
+  max-width: 18ch;
+}
+
+/* Philosophy */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 4rem);
+  margin-top: clamp(3rem, 8vh, 6rem);
+}
+
+.pillar {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+}
+
+.icon {
+  width: 88px;
+  height: 88px;
+  overflow: visible;
+}
+
+.icon path,
+.icon rect {
+  fill: none;
+  stroke: var(--rust-light);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pillarRule {
+  display: block;
+  height: 1px;
+  margin-block: 0.8rem 0.4rem;
+  background: var(--brass-35);
+  transform-origin: 0 50%;
+}
+
+.pillarNum {
+  font-size: var(--fs-label);
+  letter-spacing: 0.12em;
+  color: var(--stone);
+}
+
+.pillarTitle {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-h3);
+  line-height: 1;
+}
+
+.pillarText {
+  color: rgb(247 243 238 / 0.72);
+  max-width: 36ch;
+}
+
+/* Principal */
+.principalGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(2rem, 7vw, 8rem);
+}
+
+.portrait {
+  border-radius: 4px;
+}
+
+.principalText {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.quoteBlock {
+  position: relative;
+  margin-block: 1.6rem 1rem;
+}
+
+.quoteMark {
+  position: absolute;
+  top: -0.35em;
+  left: -0.1em;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(6rem, 12vw, 11rem);
+  line-height: 1;
+  color: var(--rust);
+  opacity: 0.18;
+}
+
+.quote {
+  position: relative;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.8rem, 3.4vw, 3.4rem);
+  line-height: 1.12;
+  color: var(--ink);
+}
+
+.founderName {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-h3);
+  color: var(--ink);
+}
+
+.founderRole {
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--rust);
+}
+
+.bio {
+  max-width: 52ch;
+  color: var(--muted-on-light);
+}
+
+/* Journey */
+.journey {
+  position: relative;
+  overflow: hidden;
+}
+
+.journeyPin {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(5rem, 12vh, 8rem);
+}
+
+.journeyHead {
+  margin-bottom: clamp(3rem, 8vh, 5rem);
+}
+
+.journeyViewport {
+  overflow: visible;
+}
+
+.journeyTrack {
+  position: relative;
+  width: max-content;
+  padding-inline: var(--gutter);
+  will-change: transform;
+}
+
+.journeyLine {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  top: 6px;
+  height: 1px;
+  background: var(--brass);
+  transform-origin: 0 50%;
+}
+
+.milestones {
+  display: flex;
+  gap: clamp(2rem, 4vw, 4rem);
+}
+
+.milestone {
+  position: relative;
+  width: clamp(260px, 26vw, 380px);
+  padding-top: 3rem;
+  display: grid;
+  align-content: start;
+  gap: 0.8rem;
+}
+
+.node {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--rust-light);
+  box-shadow: 0 0 0 6px rgb(217 120 79 / 0.18);
+}
+
+.year {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4vw, 4rem);
+  line-height: 1;
+  color: var(--bone);
+}
+
+.milestoneTitle {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: var(--fs-h4);
+  color: var(--rust-light);
+}
+
+.milestoneText {
+  color: rgb(247 243 238 / 0.72);
+}
+
+/* Team */
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 3rem) clamp(1rem, 2vw, 2rem);
+  margin-top: clamp(3rem, 8vh, 5rem);
+}
+
+.member {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.memberMedia {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 4px;
+  margin-bottom: 0.9rem;
+  background: var(--espresso);
+}
+
+.memberImg {
+  position: absolute;
+  inset: 0;
+  transition: transform 1s var(--ease-out);
+}
+
+.memberAlt {
+  clip-path: inset(100% 0% 0% 0%);
+  transition: clip-path 0.8s var(--ease-in-out);
+}
+
+.member:hover .memberAlt,
+.member:focus-within .memberAlt {
+  clip-path: inset(0% 0% 0% 0%);
+}
+
+.member:hover .memberImg:first-child {
+  transform: scale(1.05);
+}
+
+.memberName {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-h4);
+  overflow-wrap: anywhere;
+}
+
+.memberRole {
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--muted-on-light);
+}
+
+/* Press */
+.press {
+  padding-block: clamp(3rem, 8vh, 5rem);
+  overflow: hidden;
+}
+
+.pressLabel {
+  color: var(--muted-on-light);
+  margin-bottom: 1.2rem;
+}
+
+.pressRow :global(*) {
+  color: var(--ink);
+}
+
+.pressRow :global(span span:first-child) {
+  font-size: clamp(2rem, 4.2vw, 4.2rem);
+}
+
+/* Studio gallery */
+.gallery {
+  overflow: hidden;
+}
+
+.galleryRows {
+  display: grid;
+  gap: clamp(0.8rem, 1.6vw, 1.4rem);
+  margin-top: clamp(3rem, 8vh, 5rem);
+}
+
+.galleryRow {
+  display: flex;
+  gap: clamp(0.8rem, 1.6vw, 1.4rem);
+  width: max-content;
+  margin-left: -10vw;
+  will-change: transform;
+}
+
+.galleryItem {
+  position: relative;
+  height: clamp(160px, 24vw, 340px);
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+.w0 {
+  width: clamp(220px, 30vw, 460px);
+}
+
+.w1 {
+  width: clamp(160px, 20vw, 300px);
+}
+
+.w2 {
+  width: clamp(260px, 38vw, 560px);
+}
+
+@media (max-width: 900px) {
+  .heroGrid,
+  .storyGrid,
+  .principalGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroMeta {
+    grid-template-columns: 1fr;
+  }
+
+  .heroImageWrap {
+    max-width: 440px;
+  }
+
+  .sticky {
+    position: relative;
+    top: 0;
+  }
+
+  .stack {
+    aspect-ratio: 4 / 3;
+  }
+
+  .storyBlock {
+    min-height: 0;
+    padding-block: 2.5rem;
+  }
+
+  .storyText {
+    padding-bottom: 0;
+  }
+
+  .pillars {
+    grid-template-columns: 1fr;
+  }
+
+  .journeyTrack {
+    width: auto;
+  }
+
+  .journeyLine {
+    left: calc(var(--gutter) + 6px);
+    right: auto;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    height: auto;
+  }
+
+  .milestones {
+    flex-direction: column;
+    gap: 2.4rem;
+  }
+
+  .milestone {
+    width: auto;
+    padding-top: 0;
+    padding-left: 2.6rem;
+  }
+
+  .teamGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

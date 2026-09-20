@@ -1,0 +1,167 @@
+.testimonials {
+  overflow: hidden;
+}
+
+.head {
+  margin-bottom: clamp(2.5rem, 6vh, 4rem);
+}
+
+.body {
+  position: relative;
+  display: grid;
+  grid-template-columns: clamp(3rem, 10vw, 11rem) minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.mark {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(8rem, 18vw, 18rem);
+  line-height: 0.75;
+  color: var(--rust-light);
+  display: block;
+}
+
+.stage {
+  position: relative;
+  display: grid;
+  min-height: 22rem;
+  cursor: grab;
+  touch-action: pan-y;
+  border-radius: 8px;
+}
+
+.stage:focus-visible {
+  outline-offset: 12px;
+}
+
+.quote {
+  grid-area: 1 / 1;
+  margin: 0;
+  display: grid;
+  align-content: start;
+  gap: 2.2rem;
+  visibility: hidden;
+}
+
+.quote:first-child {
+  visibility: visible;
+}
+
+.quote blockquote {
+  margin: 0;
+}
+
+.text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.9rem, 4.2vw, 4.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  max-width: 24ch;
+}
+
+.caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 1.4rem;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+}
+
+.project {
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: clamp(2.5rem, 6vh, 4rem);
+  padding-left: calc(clamp(3rem, 10vw, 11rem) + 1rem);
+}
+
+.count {
+  display: flex;
+  gap: 0.4rem;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.slash {
+  color: var(--brass);
+}
+
+.timer {
+  position: relative;
+  flex: 1;
+  max-width: 320px;
+  height: 1px;
+  background: rgb(247 243 238 / 0.15);
+  overflow: hidden;
+}
+
+.timerBar {
+  position: absolute;
+  inset: 0;
+  background: var(--rust-light);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+
+.arrows {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.arrow {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--brass-35);
+  color: var(--bone);
+  font-size: 1.1rem;
+  transition:
+    background-color 0.4s var(--ease-out),
+    color 0.4s var(--ease-out),
+    border-color 0.4s var(--ease-out);
+}
+
+.arrow:hover,
+.arrow:focus-visible {
+  background: var(--bone);
+  color: var(--ink);
+  border-color: var(--bone);
+}
+
+@media (max-width: 767px) {
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .mark {
+    font-size: 6rem;
+    height: 3.2rem;
+  }
+
+  .stage {
+    min-height: 26rem;
+  }
+
+  .controls {
+    padding-left: 0;
+    gap: 1.2rem;
+  }
+}

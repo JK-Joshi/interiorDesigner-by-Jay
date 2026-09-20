@@ -1,0 +1,330 @@
+@import 'lenis/dist/lenis.css';
+
+/* ── Reset ─────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(184 149 90 / 0.55) var(--ink);
+  background: var(--ink);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ink);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background: rgb(184 149 90 / 0.45);
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: var(--ink);
+  color: var(--bone);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: 400;
+  /* Playfair Display and Cormorant default to old-style figures; the layout is set in lining figures. */
+  font-variant-numeric: lining-nums;
+  overflow-x: clip;
+}
+
+body.is-locked {
+  overflow: hidden;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+ul,
+ol,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--rust);
+  color: var(--bone);
+}
+
+.kern-w-serif {
+  letter-spacing: -0.05em;
+}
+
+/* Changing numbers (see src/lib/figures.jsx): Playfair Display has no tabular figures. */
+.fig {
+  display: inline-block;
+  width: 0.62em;
+  text-align: center;
+}
+
+.count-box {
+  display: inline-grid;
+  justify-items: start;
+}
+
+.count-box::before {
+  content: attr(data-final);
+  visibility: hidden;
+}
+
+.count-box::before,
+.count-box > * {
+  grid-area: 1 / 1;
+}
+
+/* ── Focus ─────────────────────────────────────────────────── */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--rust-light);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.theme-light :focus-visible {
+  outline-color: var(--rust);
+}
+
+/* ── Accessibility helpers ─────────────────────────────────── */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  z-index: 200;
+  transform: translate(-50%, -160%);
+  padding: 0.8rem 1.4rem;
+  border-radius: var(--radius-pill);
+  background: var(--rust);
+  color: var(--bone);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: transform 0.4s var(--ease-out);
+}
+
+.skip-link:focus-visible {
+  transform: translate(-50%, 0);
+  outline-color: var(--bone);
+}
+
+/* ── Typography primitives ─────────────────────────────────── */
+.display,
+.h-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: var(--tracking-display);
+  line-height: var(--lh-tight);
+}
+
+.display em,
+.h-display em,
+.italic-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.lead {
+  font-family: var(--font-serif);
+  font-size: var(--fs-lead);
+  line-height: 1.35;
+  font-style: italic;
+}
+
+.accent {
+  color: var(--rust);
+}
+
+.theme-dark .accent {
+  color: var(--rust-light);
+}
+
+/* ── Surfaces ──────────────────────────────────────────────── */
+.theme-dark {
+  background: var(--ink);
+  color: var(--bone);
+}
+
+.theme-espresso {
+  background: var(--espresso);
+  color: var(--bone);
+}
+
+.theme-light {
+  background: var(--linen);
+  color: var(--ink);
+}
+
+.theme-bone {
+  background: var(--bone);
+  color: var(--ink);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  position: relative;
+  padding-block: var(--section-pad);
+}
+
+.hairline {
+  height: 1px;
+  width: 100%;
+  background: var(--brass-35);
+  transform-origin: left center;
+}
+
+/* SplitText helpers — hide un-split text to avoid a flash before animating. */
+[data-split]:not(.is-split) {
+  visibility: hidden;
+}
+
+.split-line-mask,
+.split-word-mask,
+.split-char-mask {
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+/* Reveal helpers (removed by GSAP) */
+[data-reveal-fade] {
+  opacity: 0;
+}
+
+/* ── Page shell ────────────────────────────────────────────── */
+#root {
+  isolation: isolate;
+}
+
+main {
+  display: block;
+}
+
+.page {
+  position: relative;
+  min-height: 100svh;
+}
+
+/* Cursor visibility: hide the native cursor only where the custom one renders */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+html.has-custom-cursor input,
+html.has-custom-cursor textarea,
+html.has-custom-cursor select {
+  cursor: text !important;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+/* ── Reduced motion ────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

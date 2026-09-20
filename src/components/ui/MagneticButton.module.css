@@ -1,0 +1,180 @@
+.button {
+  --btn-bg: var(--rust);
+  --btn-fg: var(--bone);
+  --btn-border: transparent;
+  --btn-hover-bg: var(--rust-deep);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 1.6rem;
+  border-radius: var(--radius-pill);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: 1px solid var(--btn-border);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    background-color 0.5s var(--ease-out),
+    color 0.5s var(--ease-out),
+    border-color 0.5s var(--ease-out);
+  will-change: transform;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--btn-hover-bg);
+  transform: translateY(101%);
+  transition: transform 0.6s var(--ease-out);
+}
+
+.button:hover::before,
+.button:focus-visible::before {
+  transform: translateY(0);
+}
+
+.inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.labelWrap {
+  position: relative;
+  display: inline-grid;
+  overflow: hidden;
+  line-height: 1.2;
+}
+
+.label {
+  grid-area: 1 / 1;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.label:nth-child(2) {
+  transform: translateY(110%);
+}
+
+.button:hover .label:first-child,
+.button:focus-visible .label:first-child {
+  transform: translateY(-110%);
+}
+
+.button:hover .label:nth-child(2),
+.button:focus-visible .label:nth-child(2) {
+  transform: translateY(0);
+}
+
+.iconWrap {
+  position: relative;
+  display: inline-grid;
+  width: 1.05rem;
+  height: 1.05rem;
+  overflow: hidden;
+}
+
+.arrow {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.arrow:nth-child(2) {
+  transform: translateX(-120%);
+}
+
+.button:hover .arrow:first-child,
+.button:focus-visible .arrow:first-child {
+  transform: translateX(120%);
+}
+
+.button:hover .arrow:nth-child(2),
+.button:focus-visible .arrow:nth-child(2) {
+  transform: translateX(0);
+}
+
+/* Variants */
+.solid {
+  --btn-bg: var(--rust);
+  --btn-fg: var(--bone);
+  --btn-hover-bg: var(--ink);
+}
+
+.light {
+  --btn-bg: var(--bone);
+  --btn-fg: var(--ink);
+  --btn-hover-bg: var(--ink);
+}
+
+.light:hover,
+.light:focus-visible {
+  color: var(--bone);
+}
+
+.outline {
+  --btn-bg: transparent;
+  --btn-fg: currentColor;
+  --btn-border: var(--brass-35);
+  --btn-hover-bg: var(--bone);
+}
+
+.outline:hover,
+.outline:focus-visible {
+  color: var(--ink);
+  border-color: var(--bone);
+}
+
+.outlineDark {
+  --btn-bg: transparent;
+  --btn-fg: var(--ink);
+  --btn-border: rgb(26 23 20 / 0.25);
+  --btn-hover-bg: var(--ink);
+}
+
+.outlineDark:hover,
+.outlineDark:focus-visible {
+  color: var(--bone);
+}
+
+.ghost {
+  --btn-bg: transparent;
+  --btn-fg: currentColor;
+  --btn-hover-bg: var(--bone-12);
+  padding-inline: 1rem;
+}
+
+/* Sizes */
+.sm {
+  min-height: 44px;
+  padding-inline: 1.15rem;
+  font-size: 0.74rem;
+}
+
+.lg {
+  min-height: 64px;
+  padding-inline: 2.2rem;
+  font-size: 0.9rem;
+}
+
+.xl {
+  min-height: clamp(72px, 9vw, 110px);
+  padding-inline: clamp(2rem, 4vw, 3.6rem);
+  font-size: clamp(0.9rem, 1.1vw, 1.1rem);
+}

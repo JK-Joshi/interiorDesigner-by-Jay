@@ -1,0 +1,16 @@
+/* Self-hosted via Fontsource (font-display: swap, unicode-range subsets). */
+
+/* Display — Playfair Display (variable weight 400–900). A high-contrast transitional
+   serif whose hairlines stay visible at every size, on dark and light grounds. */
+@import '@fontsource-variable/playfair-display/wght.css';
+
+/* Editorial serif — Cormorant Garamond */
+@import '@fontsource/cormorant-garamond/400.css';
+@import '@fontsource/cormorant-garamond/500.css';
+@import '@fontsource/cormorant-garamond/400-italic.css';
+@import '@fontsource/cormorant-garamond/500-italic.css';
+
+/* UI / body — Manrope */
+@import '@fontsource/manrope/400.css';
+@import '@fontsource/manrope/500.css';
+@import '@fontsource/manrope/600.css';

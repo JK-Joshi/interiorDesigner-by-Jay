@@ -1,0 +1,36 @@
+.statement {
+  padding-block: calc(var(--section-pad) * 1.1) calc(var(--section-pad) * 0.6);
+}
+
+.text {
+  margin-top: clamp(2.5rem, 6vh, 4.5rem);
+  max-width: 22ch;
+  font-family: var(--font-display);
+  font-size: var(--fs-statement);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.text :global(.split-word) {
+  will-change: color;
+}
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: clamp(3rem, 8vh, 6rem);
+  padding-top: 2rem;
+  border-top: 1px solid rgb(26 23 20 / 0.12);
+}
+
+.aside {
+  max-width: 40ch;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--fs-lead);
+  color: var(--muted-on-light);
+}

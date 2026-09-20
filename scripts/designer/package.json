@@ -1,0 +1,12 @@
+{
+  "name": "rust-design-studio-designer-build",
+  "private": true,
+  "description": "Toolchain for build.mjs (regenerates src/three/models/designer.glb). Kept out of the site's dependencies.",
+  "type": "module",
+  "devDependencies": {
+    "@gltf-transform/core": "^4.5.0",
+    "@gltf-transform/extensions": "^4.5.0",
+    "@gltf-transform/functions": "^4.5.0",
+    "meshoptimizer": "^1.2.0"
+  }
+}

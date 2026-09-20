@@ -1,0 +1,60 @@
+.explore {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  background: var(--ink);
+  touch-action: none;
+  overscroll-behavior: contain;
+}
+
+.top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: calc(14px + env(safe-area-inset-top, 0px)) 14px 0;
+  pointer-events: none;
+}
+
+.title {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: 14px;
+  background: rgb(26 23 20 / 0.72);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--bone);
+}
+
+.hint {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--stone);
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--bone);
+  color: var(--ink);
+  pointer-events: auto;
+  box-shadow: 0 10px 30px rgb(10 8 6 / 0.45);
+}
+
+.close svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}

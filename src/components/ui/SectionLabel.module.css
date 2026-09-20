@@ -1,0 +1,65 @@
+.label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.mask {
+  display: inline-block;
+  overflow: hidden;
+  padding-block: 0.1em;
+}
+
+.num,
+.text {
+  display: inline-block;
+}
+
+.num {
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: 0.08em;
+}
+
+.line {
+  display: inline-block;
+  width: clamp(2.5rem, 6vw, 5.5rem);
+  height: 1px;
+  background: var(--brass);
+  transform-origin: left center;
+}
+
+.dark {
+  color: var(--stone);
+}
+
+.dark .num {
+  color: var(--rust-light);
+}
+
+.light {
+  color: var(--muted-on-light);
+}
+
+.light .num {
+  color: var(--rust-deep);
+}
+
+.light .line {
+  background: var(--rust);
+  opacity: 0.5;
+}
+
+.onRust {
+  color: var(--bone);
+}
+
+.onRust .line {
+  background: var(--bone);
+  opacity: 0.6;
+}
